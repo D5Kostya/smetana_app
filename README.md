@@ -1,6 +1,6 @@
 ![Smetana App](apps/app-frontend/src/assets/modrinth_app.svg "Smetana App")
 
-# [DOWLOAD | СКАЧАТЬ](https://github.com)
+# [DOWLOAD | СКАЧАТЬ](https://github.com/D5Kostya/smetana_app/releases/latest)
 
 #### Smetana App - new minecraft launcher
 

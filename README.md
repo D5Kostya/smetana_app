@@ -1,4 +1,4 @@
-шейдеров![Smetana App](apps\app-frontend\src\assets\modrinth_app.svg 'Smetana App')
+![Smetana App](apps/app-frontend/src/assets/modrinth_app.svg "Smetana App")
 
 # [DOWLOAD | СКАЧАТЬ](https://github.com)
 

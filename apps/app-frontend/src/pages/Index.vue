@@ -100,23 +100,19 @@ onUnmounted(() => {
     <h1 v-if="recentInstances" class="m-0 text-2xl">Welcome back!</h1>
     <h1 v-else class="m-0 text-2xl">Welcome to Smetana App!</h1>
     <RecentWorldsList :recent-instances="recentInstances" />
-    <RowDisplay
-      v-if="hasFeaturedProjects"
-      :instances="[
-        {
-          label: 'Discover a modpack',
-          route: '/browse/modpack',
-          instances: featuredModpacks,
-          downloaded: false,
-        },
-        {
-          label: 'Discover mods',
-          route: '/browse/mod',
-          instances: featuredMods,
-          downloaded: false,
-        },
-      ]"
-      :can-paginate="true"
-    />
+    <RowDisplay v-if="hasFeaturedProjects" :instances="[
+      {
+        label: 'Discover a modpack',
+        route: '/browse/modpack',
+        instances: featuredModpacks,
+        downloaded: false,
+      },
+      {
+        label: 'Discover mods',
+        route: '/browse/mod',
+        instances: featuredMods,
+        downloaded: false,
+      },
+    ]" :can-paginate="true" />
   </div>
 </template>

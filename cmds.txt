@@ -2,6 +2,7 @@ https://docs.modrinth.com/contributing/theseus/
 visual studio (разрабоотка класич. приложений на c++(msvc v143 + sdk + cmaker c++)
 pnpm install
 cargo install tauri-cli
+pnpm create vue@latest
 
 cargo clean
 pnpm app:dev

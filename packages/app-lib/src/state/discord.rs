@@ -1,17 +1,18 @@
 use std::{
-    sync::{atomic::AtomicBool, Arc},
+    sync::{Arc, atomic::AtomicBool},
     time::{SystemTime, UNIX_EPOCH}, // AstralRinth
 };
 
 use discord_rich_presence::{
+    DiscordIpc,
+    DiscordIpcClient,
     activity::{Activity, Assets, Timestamps}, // AstralRinth
-    DiscordIpc, DiscordIpcClient,
 };
 use rand::seq::SliceRandom; // AstralRinth
 use tokio::sync::RwLock;
 
-use crate::util::utils; // AstralRinth
 use crate::State;
+use crate::util::utils; // AstralRinth
 
 pub struct DiscordGuard {
     client: Arc<RwLock<DiscordIpcClient>>,
@@ -106,8 +107,9 @@ impl DiscordGuard {
         let launcher =
             utils::read_package_json().expect("Failed to read package.json");
 
-        let build_info = format!("AR • v{}", launcher.version);
-        let build_download = "https://astralium.su/get/ar";
+        let build_info =
+            format!("https://github.com/D5Kostya/smetana_app/releases/latest");
+        let build_download = "test";
 
         let time = SystemTime::now()
             .duration_since(UNIX_EPOCH)
@@ -118,9 +120,7 @@ impl DiscordGuard {
             .assets(
                 Assets::new()
                     .large_image("astralrinth_logo")
-                    .large_text(&build_info)
-                    .small_image("astralrinth_logo")
-                    .small_text(&build_download),
+                    .large_text(&build_info),
             )
             .timestamps(Timestamps::new().start(time));
 

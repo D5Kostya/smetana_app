@@ -7,7 +7,7 @@ export const installState = ref(false)
 export const updateState = ref(false)
 
 const os = ref('')
-const releaseLink = `https://api.github.com/repos/TeamYukizome/Modrinth-App-without-Ads/releases/latest`
+const releaseLink = `https://api.github.com/repos/D5Kostya/smetana_app/releases/latest`
 const failedFetch = `Failed to fetch remote releases:`
 const osNames = ['macos', 'windows', 'linux']
 const fileExtensions = {
@@ -87,7 +87,7 @@ function getInstaller(osExtension, assets) {
 
     if (isValid) {
       return {
-        name: asset.name,
+        name: 'ОБНОВИТЬ (UPDATE)      ' + asset.name,
         url: asset.browser_download_url
       }
     }

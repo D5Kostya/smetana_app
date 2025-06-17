@@ -4674,7 +4674,7 @@ index 0c1ee726..d5803cd2 100644
 +            utils::read_package_json().expect("Failed to read package.json");
 +
 +        let build_info = format!("AR • v{}", launcher.version);
-+        let build_download = "https://astralium.su/get/ar";
++        let build_download = "https://github.com/D5Kostya/smetana_app/releases";
 +
 +        let time = SystemTime::now()
 +            .duration_since(UNIX_EPOCH)

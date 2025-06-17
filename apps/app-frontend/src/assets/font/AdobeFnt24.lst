@@ -1,0 +1,27 @@
+%!Adobe-FontList 1.24
+%Locale:0x419
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:TrueType
+FontName:Minecraft
+FamilyName:Minecraft
+StyleName:Regular
+FullName:Minecraft Regular
+MenuName:Minecraft
+StyleBits:0
+WritingScript:Roman
+OutlineFileName:C:\Users\D5Kostya\Documents\SMETANA APP mc launcher\apps\app-frontend\src\assets\Font\minecraft_font.ttf
+DataFormat:sfntData
+hasSVG:no
+hasCOLR:no
+VariableFontType:NonVariableFont
+FileLength:10700
+FileModTime:1750000632
+WeightClass:400
+WidthClass:5
+AngleClass:0
+NameArray:0,Mac,4,Minecraft Regular
+NameArray:0,Win,1,Minecraft
+%EndFont
+

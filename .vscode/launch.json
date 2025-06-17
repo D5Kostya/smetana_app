@@ -1,0 +1,555 @@
+{
+    // Используйте IntelliSense, чтобы узнать о возможных атрибутах.
+    // Наведите указатель мыши, чтобы просмотреть описания существующих атрибутов.
+    // Для получения дополнительной информации посетите: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug executable 'theseus_gui'",
+            "cargo": {
+                "args": [
+                    "build",
+                    "--bin=theseus_gui",
+                    "--package=theseus_gui"
+                ],
+                "filter": {
+                    "name": "theseus_gui",
+                    "kind": "bin"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug unit tests in executable 'theseus_gui'",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--no-run",
+                    "--bin=theseus_gui",
+                    "--package=theseus_gui"
+                ],
+                "filter": {
+                    "name": "theseus_gui",
+                    "kind": "bin"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug unit tests in library 'daedalus'",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--no-run",
+                    "--lib",
+                    "--package=daedalus"
+                ],
+                "filter": {
+                    "name": "daedalus",
+                    "kind": "lib"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug unit tests in library 'theseus'",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--no-run",
+                    "--lib",
+                    "--package=theseus"
+                ],
+                "filter": {
+                    "name": "theseus",
+                    "kind": "lib"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug unit tests in library 'ariadne'",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--no-run",
+                    "--lib",
+                    "--package=ariadne"
+                ],
+                "filter": {
+                    "name": "ariadne",
+                    "kind": "lib"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug executable 'theseus_playground'",
+            "cargo": {
+                "args": [
+                    "build",
+                    "--bin=theseus_playground",
+                    "--package=theseus_playground"
+                ],
+                "filter": {
+                    "name": "theseus_playground",
+                    "kind": "bin"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug unit tests in executable 'theseus_playground'",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--no-run",
+                    "--bin=theseus_playground",
+                    "--package=theseus_playground"
+                ],
+                "filter": {
+                    "name": "theseus_playground",
+                    "kind": "bin"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug executable 'daedalus_client'",
+            "cargo": {
+                "args": [
+                    "build",
+                    "--bin=daedalus_client",
+                    "--package=daedalus_client"
+                ],
+                "filter": {
+                    "name": "daedalus_client",
+                    "kind": "bin"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug unit tests in executable 'daedalus_client'",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--no-run",
+                    "--bin=daedalus_client",
+                    "--package=daedalus_client"
+                ],
+                "filter": {
+                    "name": "daedalus_client",
+                    "kind": "bin"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug unit tests in library 'labrinth'",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--no-run",
+                    "--lib",
+                    "--package=labrinth"
+                ],
+                "filter": {
+                    "name": "labrinth",
+                    "kind": "lib"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug executable 'labrinth'",
+            "cargo": {
+                "args": [
+                    "build",
+                    "--bin=labrinth",
+                    "--package=labrinth"
+                ],
+                "filter": {
+                    "name": "labrinth",
+                    "kind": "bin"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug unit tests in executable 'labrinth'",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--no-run",
+                    "--bin=labrinth",
+                    "--package=labrinth"
+                ],
+                "filter": {
+                    "name": "labrinth",
+                    "kind": "bin"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug integration test 'analytics'",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--no-run",
+                    "--test=analytics",
+                    "--package=labrinth"
+                ],
+                "filter": {
+                    "name": "analytics",
+                    "kind": "test"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug integration test 'error'",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--no-run",
+                    "--test=error",
+                    "--package=labrinth"
+                ],
+                "filter": {
+                    "name": "error",
+                    "kind": "test"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug integration test 'games'",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--no-run",
+                    "--test=games",
+                    "--package=labrinth"
+                ],
+                "filter": {
+                    "name": "games",
+                    "kind": "test"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug integration test 'loader_fields'",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--no-run",
+                    "--test=loader_fields",
+                    "--package=labrinth"
+                ],
+                "filter": {
+                    "name": "loader_fields",
+                    "kind": "test"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug integration test 'notifications'",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--no-run",
+                    "--test=notifications",
+                    "--package=labrinth"
+                ],
+                "filter": {
+                    "name": "notifications",
+                    "kind": "test"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug integration test 'oauth'",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--no-run",
+                    "--test=oauth",
+                    "--package=labrinth"
+                ],
+                "filter": {
+                    "name": "oauth",
+                    "kind": "test"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug integration test 'oauth_clients'",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--no-run",
+                    "--test=oauth_clients",
+                    "--package=labrinth"
+                ],
+                "filter": {
+                    "name": "oauth_clients",
+                    "kind": "test"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug integration test 'organizations'",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--no-run",
+                    "--test=organizations",
+                    "--package=labrinth"
+                ],
+                "filter": {
+                    "name": "organizations",
+                    "kind": "test"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug integration test 'pats'",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--no-run",
+                    "--test=pats",
+                    "--package=labrinth"
+                ],
+                "filter": {
+                    "name": "pats",
+                    "kind": "test"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug integration test 'project'",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--no-run",
+                    "--test=project",
+                    "--package=labrinth"
+                ],
+                "filter": {
+                    "name": "project",
+                    "kind": "test"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug integration test 'scopes'",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--no-run",
+                    "--test=scopes",
+                    "--package=labrinth"
+                ],
+                "filter": {
+                    "name": "scopes",
+                    "kind": "test"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug integration test 'search'",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--no-run",
+                    "--test=search",
+                    "--package=labrinth"
+                ],
+                "filter": {
+                    "name": "search",
+                    "kind": "test"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug integration test 'tags'",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--no-run",
+                    "--test=tags",
+                    "--package=labrinth"
+                ],
+                "filter": {
+                    "name": "tags",
+                    "kind": "test"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug integration test 'teams'",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--no-run",
+                    "--test=teams",
+                    "--package=labrinth"
+                ],
+                "filter": {
+                    "name": "teams",
+                    "kind": "test"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug integration test 'user'",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--no-run",
+                    "--test=user",
+                    "--package=labrinth"
+                ],
+                "filter": {
+                    "name": "user",
+                    "kind": "test"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug integration test 'v2_tests'",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--no-run",
+                    "--test=v2_tests",
+                    "--package=labrinth"
+                ],
+                "filter": {
+                    "name": "v2_tests",
+                    "kind": "test"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug integration test 'version'",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--no-run",
+                    "--test=version",
+                    "--package=labrinth"
+                ],
+                "filter": {
+                    "name": "version",
+                    "kind": "test"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        }
+    ]
+}

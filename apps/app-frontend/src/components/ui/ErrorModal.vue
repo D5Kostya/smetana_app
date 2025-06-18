@@ -18,6 +18,13 @@ import { cancel_directory_change } from '@/helpers/settings.ts'
 import { install } from '@/helpers/profile.js'
 import { trackEvent } from '@/helpers/analytics'
 import ModalWrapper from '@/components/ui/modal/ModalWrapper.vue'
+import { MicrosoftIcon, PirateIcon } from '@modrinth/assets'
+import {
+  offline_login,
+  users,
+  remove_user,
+  get_default_user,
+} from '@/helpers/auth'
 
 const errorModal = ref()
 const error = ref()
@@ -28,6 +35,10 @@ const title = ref('An error occurred')
 const errorType = ref('unknown')
 const supportLink = ref('https://support.modrinth.com')
 const metadata = ref({})
+
+const playerName = ref('')
+const loginOfflineModal = ref(null)
+
 
 defineExpose({
   async show(errorVal, context, canClose = true, source = null) {
@@ -85,6 +96,24 @@ defineExpose({
   },
 })
 
+async function offlineLoginFinally() { // Patched
+  let name = playerName.value
+  if (name.length > 1 && name.length < 20 && name !== '') {
+    const loggedIn = await offline_login(name).catch(handleError)
+    loginOfflineModal.value.hide()
+    if (loggedIn) {
+      await setAccount(loggedIn)
+      await refreshValues()
+    } else {
+      unexpectedErrorModal.value.show()
+    }
+    playerName.value = ''
+  } else {
+    playerName.value = ''
+    loginOfflineModal.value.hide()
+    loginErrorModal.value.show()
+  }
+}
 const loadingMinecraft = ref(false)
 async function loginMinecraft() {
   try {
@@ -161,9 +190,7 @@ async function copyToClipboard(text) {
               It looks like there were issues with the Modrinth App connecting to Microsoft's
               servers. This is often the result of a poor connection, so we recommend trying again
               to see if it works. If issues continue to persist, follow the steps in
-              <a
-                href="https://support.modrinth.com/en/articles/9038231-minecraft-sign-in-issues#h_e71a5f805f"
-              >
+              <a href="https://support.modrinth.com/en/articles/9038231-minecraft-sign-in-issues#h_e71a5f805f">
                 our support article
               </a>
               to troubleshoot.
@@ -175,9 +202,7 @@ async function copyToClipboard(text) {
               The Modrinth App tried to connect to Microsoft / Xbox / Minecraft services, but the
               remote server rejected the connection. This may indicate that these services are
               blocked by the hosts file. Please visit
-              <a
-                href="https://support.modrinth.com/en/articles/9038231-minecraft-sign-in-issues#h_d694a29256"
-              >
+              <a href="https://support.modrinth.com/en/articles/9038231-minecraft-sign-in-issues#h_d694a29256">
                 our support article
               </a>
               for steps on how to fix the issue.
@@ -241,16 +266,23 @@ async function copyToClipboard(text) {
         </template>
         <div v-else-if="errorType === 'minecraft_sign_in'">
           <p>
-            To play this instance, you must sign in through Microsoft below. If you don't have a
-            Minecraft account, you can purchase the game on the
-            <a href="https://www.minecraft.net/en-us/store/minecraft-java-bedrock-edition-pc"
-              >Minecraft website</a
-            >.
+            Sign in ms account.
+            <a href="https://www.minecraft.net/en-us/store/minecraft-java-bedrock-edition-pc">Buy minecraft</a>.
+            <br>
+            <br>
+            or u can just press offline :) (*for informational purposes, better buy license!)
           </p>
           <div class="cta-button">
             <button class="btn btn-primary" :disabled="loadingMinecraft" @click="loginMinecraft">
-              <LogInIcon /> Sign in to Minecraft
+              <LogInIcon /> License 😎
             </button>
+            <div class="modal-body">
+              <div class="label"> </div>
+              <input type="text" v-model="playerName" placeholder="name" />
+              <button class="btn btn-primary" @click="offlineLoginFinally(), errorModal.hide(), errorModal.hide()">
+                <LogInIcon /> 🏴‍☠️
+              </button>
+            </div>
           </div>
         </div>
         <template v-else-if="errorType === 'state_init'">
@@ -288,29 +320,33 @@ async function copyToClipboard(text) {
       </div>
       <div class="flex items-center gap-2">
         <ButtonStyled>
-          <a :href="supportLink" @click="errorModal.hide()"><ChatIcon /> Get support</a>
+          <a :href="supportLink" @click="errorModal.hide()">
+            <ChatIcon /> Get support
+          </a>
         </ButtonStyled>
         <ButtonStyled v-if="closable">
-          <button @click="errorModal.hide()"><XIcon /> Close</button>
+          <button @click="errorModal.hide()">
+            <XIcon /> Close
+          </button>
         </ButtonStyled>
         <ButtonStyled v-if="hasDebugInfo">
           <button :disabled="copied" @click="copyToClipboard(debugInfo)">
-            <template v-if="copied"> <CheckIcon class="text-green" /> Copied! </template>
-            <template v-else> <CopyIcon /> Copy debug info </template>
+            <template v-if="copied">
+              <CheckIcon class="text-green" /> Copied!
+            </template>
+            <template v-else>
+              <CopyIcon /> Copy debug info
+            </template>
           </button>
         </ButtonStyled>
       </div>
       <template v-if="hasDebugInfo">
         <div class="bg-button-bg rounded-xl mt-2 overflow-clip">
-          <button
-            class="flex items-center justify-between w-full bg-transparent border-0 px-4 py-3 cursor-pointer"
-            @click="errorCollapsed = !errorCollapsed"
-          >
+          <button class="flex items-center justify-between w-full bg-transparent border-0 px-4 py-3 cursor-pointer"
+            @click="errorCollapsed = !errorCollapsed">
             <span class="text-contrast font-extrabold m-0">Debug information:</span>
-            <DropdownIcon
-              class="h-5 w-5 text-secondary transition-transform"
-              :class="{ 'rotate-180': !errorCollapsed }"
-            />
+            <DropdownIcon class="h-5 w-5 text-secondary transition-transform"
+              :class="{ 'rotate-180': !errorCollapsed }" />
           </button>
           <Collapsible :collapsed="errorCollapsed">
             <pre class="m-0 px-4 py-3 bg-bg rounded-none">{{ debugInfo }}</pre>

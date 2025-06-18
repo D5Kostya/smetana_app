@@ -1,19 +1,11 @@
 <template>
-  <div
-    v-if="mode !== 'isolated'"
-    ref="button"
+  <div v-if="mode !== 'isolated'" ref="button"
     class="button-base mt-2 px-3 py-2 bg-button-bg rounded-xl flex items-center gap-2"
-    :class="{ expanded: mode === 'expanded' }"
-    @click="toggleMenu"
-  >
-    <Avatar
-      size="36px"
-      :src="
-        selectedAccount
-          ? `https://mc-heads.net/avatar/${selectedAccount.id}/128`
-          : 'https://launcher-files.modrinth.com/assets/steve_head.png'
-      "
-    />
+    :class="{ expanded: mode === 'expanded' }" @click="toggleMenu">
+    <Avatar size="36px" :src="selectedAccount
+      ? `https://mc-heads.net/avatar/${selectedAccount.username}/128`
+      : 'https://launcher-files.modrinth.com/assets/steve_head.png'
+      " />
     <div class="flex flex-col w-full">
       <span>
         <component v-if="selectedAccount" :is="getAccountType(selectedAccount)" class="vector-icon" />

@@ -87,19 +87,19 @@ const handleInstanceRightClick = async (event, passedInstance) => {
   const options =
     runningProcesses.length > 0
       ? [
-          {
-            name: 'stop',
-            color: 'danger',
-          },
-          ...baseOptions,
-        ]
+        {
+          name: 'stop',
+          color: 'danger',
+        },
+        ...baseOptions,
+      ]
       : [
-          {
-            name: 'play',
-            color: 'primary',
-          },
-          ...baseOptions,
-        ]
+        {
+          name: 'play',
+          color: 'primary',
+        },
+        ...baseOptions,
+      ]
 
   instanceOptions.value.showMenu(event, passedInstance, options)
 }
@@ -194,12 +194,10 @@ const calculateCardsPerRow = () => {
     containerWidth / parseFloat(getComputedStyle(document.documentElement).fontSize)
 
   maxInstancesPerCompactRow.value = Math.floor((containerWidthInRem + 0.75) / 18.75)
-  maxInstancesPerRow.value = Math.floor((containerWidthInRem + 0.75) / 20.75)
+  maxInstancesPerRow.value = Math.floor(99)
   maxProjectsPerRow.value = Math.floor((containerWidthInRem + 0.75) / 18.75)
 
-  if (maxInstancesPerRow.value < 5) {
-    maxInstancesPerRow.value *= 2
-  }
+
   if (maxInstancesPerCompactRow.value < 5) {
     maxInstancesPerCompactRow.value *= 2
   }
@@ -229,61 +227,63 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <ConfirmModalWrapper
-    ref="deleteConfirmModal"
-    title="Are you sure you want to delete this instance?"
+  <ConfirmModalWrapper ref="deleteConfirmModal" title="Are you sure you want to delete this instance?"
     description="If you proceed, all data for your instance will be removed. You will not be able to recover it."
-    :has-to-type="false"
-    proceed-label="Delete"
-    @proceed="deleteProfile"
-  />
+    :has-to-type="false" proceed-label="Delete" @proceed="deleteProfile" />
   <div ref="rowContainer" class="flex flex-col gap-4">
     <div v-for="row in actualInstances" ref="rows" :key="row.label" class="row">
       <HeadingLink class="mt-1" :to="row.route">
         {{ row.label }}
       </HeadingLink>
-      <section
-        v-if="row.instance"
-        ref="modsRow"
-        class="instances"
-        :class="{ compact: row.compact }"
-      >
-        <Instance
-          v-for="(instance, instanceIndex) in row.instances.slice(
-            0,
-            row.compact ? maxInstancesPerCompactRow : maxInstancesPerRow,
-          )"
-          :key="row.label + instance.path"
-          :instance="instance"
-          :compact="row.compact"
-          :first="instanceIndex === 0"
-          @contextmenu.prevent.stop="(event) => handleInstanceRightClick(event, instance)"
-        />
+      <section v-if="row.instance" ref="modsRow" class="instances" :class="{ compact: row.compact }">
+        <Instance v-for="(instance, instanceIndex) in row.instances.slice(
+          0,
+          row.compact ? maxInstancesPerCompactRow : maxInstancesPerRow,
+        )" :key="row.label + instance.path" :instance="instance" :compact="row.compact" :first="instanceIndex === 0"
+          @contextmenu.prevent.stop="(event) => handleInstanceRightClick(event, instance)" />
       </section>
       <section v-else ref="modsRow" class="projects">
-        <ProjectCard
-          v-for="project in row.instances.slice(0, maxProjectsPerRow)"
-          :key="project?.project_id"
-          ref="instanceComponents"
-          class="item"
-          :project="project"
-          @contextmenu.prevent.stop="(event) => handleProjectClick(event, project)"
-        />
+        <ProjectCard v-for="project in row.instances.slice(0, maxProjectsPerRow)" :key="project?.project_id"
+          ref="instanceComponents" class="item" :project="project"
+          @contextmenu.prevent.stop="(event) => handleProjectClick(event, project)" />
       </section>
     </div>
   </div>
   <ContextMenu ref="instanceOptions" @option-clicked="handleOptionsClick">
-    <template #play> <PlayIcon /> Play </template>
-    <template #stop> <StopCircleIcon /> Stop </template>
-    <template #add_content> <PlusIcon /> Add content </template>
-    <template #edit> <EyeIcon /> View instance </template>
-    <template #delete> <TrashIcon /> Delete </template>
-    <template #open_folder> <FolderOpenIcon /> Open folder </template>
-    <template #duplicate> <ClipboardCopyIcon /> Duplicate instance</template>
-    <template #copy_path> <ClipboardCopyIcon /> Copy path </template>
-    <template #install> <DownloadIcon /> Install </template>
-    <template #open_link> <GlobeIcon /> Open in Modrinth <ExternalIcon /> </template>
-    <template #copy_link> <ClipboardCopyIcon /> Copy link </template>
+    <template #play>
+      <PlayIcon /> Play
+    </template>
+    <template #stop>
+      <StopCircleIcon /> Stop
+    </template>
+    <template #add_content>
+      <PlusIcon /> Add content
+    </template>
+    <template #edit>
+      <EyeIcon /> View instance
+    </template>
+    <template #delete>
+      <TrashIcon /> Delete
+    </template>
+    <template #open_folder>
+      <FolderOpenIcon /> Open folder
+    </template>
+    <template #duplicate>
+      <ClipboardCopyIcon /> Duplicate instance
+    </template>
+    <template #copy_path>
+      <ClipboardCopyIcon /> Copy path
+    </template>
+    <template #install>
+      <DownloadIcon /> Install
+    </template>
+    <template #open_link>
+      <GlobeIcon /> Open in Modrinth
+      <ExternalIcon />
+    </template>
+    <template #copy_link>
+      <ClipboardCopyIcon /> Copy link
+    </template>
   </ContextMenu>
 </template>
 <style lang="scss" scoped>
@@ -341,7 +341,7 @@ onUnmounted(() => {
 
   .instances {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(13rem, 1fr));
     grid-gap: 0.75rem;
     width: 100%;
 

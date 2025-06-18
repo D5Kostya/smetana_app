@@ -51,12 +51,8 @@ const onHide = () => {
 </script>
 
 <template>
-  <ModalWrapper
-    ref="modpackVersionModal"
-    class="modpack-version-modal"
-    header="Change modpack version"
-    :on-hide="onHide"
-  >
+  <ModalWrapper ref="modpackVersionModal" class="modpack-version-modal" header="Change modpack version"
+    :on-hide="onHide">
     <div class="modal-body">
       <div v-if="instance.linked_data" class="mod-card">
         <div class="table">
@@ -66,19 +62,12 @@ const onHide = () => {
             <div class="table-cell table-text">Supports</div>
           </div>
           <div class="scrollable">
-            <div
-              v-for="version in filteredVersions"
-              :key="version.id"
-              class="table-row with-columns selectable"
-              @click="$router.push(`/project/${version.project_id}/version/${version.id}`)"
-            >
+            <div v-for="version in filteredVersions" :key="version.id" class="table-row with-columns selectable"
+              @click="$router.push(`/project/${version.project_id}/version/${version.id}`)">
               <div class="table-cell table-text">
-                <Button
-                  :color="version.id === installedVersion ? '' : 'primary'"
-                  icon-only
+                <Button :color="version.id === installedVersion ? '' : 'primary'" icon-only
                   :disabled="inProgress || installing || version.id === installedVersion"
-                  @click.stop="() => switchVersion(version.id)"
-                >
+                  @click.stop="() => switchVersion(version.id)">
                   <SwapIcon v-if="version.id !== installedVersion" />
                   <CheckIcon v-else />
                 </Button>
@@ -88,13 +77,9 @@ const onHide = () => {
                   {{ version.name.charAt(0).toUpperCase() + version.name.slice(1) }}
                   <div class="version-badge">
                     <div class="channel-indicator">
-                      <Badge
-                        :color="releaseColor(version.version_type)"
-                        :type="
-                          version.version_type.charAt(0).toUpperCase() +
-                          version.version_type.slice(1)
-                        "
-                      />
+                      <Badge :color="releaseColor(version.version_type)" :type="version.version_type.charAt(0).toUpperCase() +
+                        version.version_type.slice(1)
+                        " />
                     </div>
                     <div>
                       {{ version.version_number }}

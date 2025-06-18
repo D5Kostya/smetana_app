@@ -72,19 +72,19 @@ const handleRightClick = (event, profilePathId) => {
     item,
     item.playing
       ? [
-          {
-            name: 'stop',
-            color: 'danger',
-          },
-          ...baseOptions,
-        ]
+        {
+          name: 'stop',
+          color: 'danger',
+        },
+        ...baseOptions,
+      ]
       : [
-          {
-            name: 'play',
-            color: 'primary',
-          },
-          ...baseOptions,
-        ],
+        {
+          name: 'play',
+          color: 'primary',
+        },
+        ...baseOptions,
+      ],
   )
 }
 
@@ -226,68 +226,59 @@ const filteredResults = computed(() => {
         <XIcon />
       </Button>
     </div>
-    <DropdownSelect
-      v-slot="{ selected }"
-      v-model="sortBy"
-      name="Sort Dropdown"
-      class="max-w-[16rem]"
-      :options="['Name', 'Last played', 'Date created', 'Date modified', 'Game version']"
-      placeholder="Select..."
-    >
+    <DropdownSelect v-slot="{ selected }" v-model="sortBy" name="Sort Dropdown" class="max-w-[16rem]"
+      :options="['Name', 'Last played', 'Date created', 'Date modified', 'Game version']" placeholder="Select...">
       <span class="font-semibold text-primary">Sort by: </span>
       <span class="font-semibold text-secondary">{{ selected }}</span>
     </DropdownSelect>
-    <DropdownSelect
-      v-slot="{ selected }"
-      v-model="group"
-      class="max-w-[16rem]"
-      name="Group Dropdown"
-      :options="['Group', 'Loader', 'Game version', 'None']"
-      placeholder="Select..."
-    >
+    <DropdownSelect v-slot="{ selected }" v-model="group" class="max-w-[16rem]" name="Group Dropdown"
+      :options="['Group', 'Loader', 'Game version', 'None']" placeholder="Select...">
       <span class="font-semibold text-primary">Group by: </span>
       <span class="font-semibold text-secondary">{{ selected }}</span>
     </DropdownSelect>
   </div>
-  <div
-    v-for="instanceSection in Array.from(filteredResults, ([key, value]) => ({
-      key,
-      value,
-    }))"
-    :key="instanceSection.key"
-    class="row"
-  >
+  <div v-for="instanceSection in Array.from(filteredResults, ([key, value]) => ({
+    key,
+    value,
+  }))" :key="instanceSection.key" class="row">
     <div v-if="instanceSection.key !== 'None'" class="divider">
       <p>{{ instanceSection.key }}</p>
       <hr aria-hidden="true" />
     </div>
     <section class="instances">
-      <Instance
-        v-for="instance in instanceSection.value"
-        ref="instanceComponents"
-        :key="instance.path + instance.install_stage"
-        :instance="instance"
-        @contextmenu.prevent.stop="(event) => handleRightClick(event, instance.path)"
-      />
+      <Instance v-for="instance in instanceSection.value" ref="instanceComponents"
+        :key="instance.path + instance.install_stage" :instance="instance"
+        @contextmenu.prevent.stop="(event) => handleRightClick(event, instance.path)" />
     </section>
   </div>
-  <ConfirmModalWrapper
-    ref="confirmModal"
-    title="Are you sure you want to delete this instance?"
+  <ConfirmModalWrapper ref="confirmModal" title="Are you sure you want to delete this instance?"
     description="If you proceed, all data for your instance will be removed. You will not be able to recover it."
-    :has-to-type="false"
-    proceed-label="Delete"
-    @proceed="deleteProfile"
-  />
+    :has-to-type="false" proceed-label="Delete" @proceed="deleteProfile" />
   <ContextMenu ref="instanceOptions" @option-clicked="handleOptionsClick">
-    <template #play> <PlayIcon /> Play </template>
-    <template #stop> <StopCircleIcon /> Stop </template>
-    <template #add_content> <PlusIcon /> Add content </template>
-    <template #edit> <EyeIcon /> View instance </template>
-    <template #duplicate> <ClipboardCopyIcon /> Duplicate instance</template>
-    <template #delete> <TrashIcon /> Delete </template>
-    <template #open> <FolderOpenIcon /> Open folder </template>
-    <template #copy> <ClipboardCopyIcon /> Copy path </template>
+    <template #play>
+      <PlayIcon /> Play
+    </template>
+    <template #stop>
+      <StopCircleIcon /> Stop
+    </template>
+    <template #add_content>
+      <PlusIcon /> Add content
+    </template>
+    <template #edit>
+      <EyeIcon /> View instance
+    </template>
+    <template #duplicate>
+      <ClipboardCopyIcon /> Duplicate instance
+    </template>
+    <template #delete>
+      <TrashIcon /> Delete
+    </template>
+    <template #open>
+      <FolderOpenIcon /> Open folder
+    </template>
+    <template #copy>
+      <ClipboardCopyIcon /> Copy path
+    </template>
   </ContextMenu>
 </template>
 <style lang="scss" scoped>

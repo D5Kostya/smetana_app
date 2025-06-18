@@ -6,13 +6,17 @@
 
 ---
 
-### Smetana App - new minecraft launcher
+###
+
+    Smetana App - new minecraft launcher
 
 [✈️My teleram chanel | Мой тгк](https://t.me/d5kostya)
 
 🔌\*is a fork of [AstraRinth](https://git.astralium.su/didirus/AstralRinth)(astrarinth is fork of [modrinth](https://github.com/modrinth/code))
 
-### 😎Features | Фичи
+###
+
+    😎Features | Фичи
 
 - Mods dowloading from modrinth | Загрузка модов с модринт
 - RP dowloading from modrinth | Загрузка рп с модринт

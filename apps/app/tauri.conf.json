@@ -52,7 +52,7 @@
     ]
   },
   "productName": "Smetana App",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "mainBinaryName": "Smetana App",
   "identifier": "SmetanaAPP",
   "plugins": {

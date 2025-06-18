@@ -53,7 +53,7 @@ const getInstances = async () => {
 
 const getFeaturedModpacks = async () => {
   const response = await get_search_results(
-    `?facets=[["project_type:modpack"], ["title:OptiFabric"]]&limit=10&index=follows&filters=${filter.value}`,
+    `?facets=[["project_type:modpack"], ["title:Smetana"]]&limit=10&index=follows&filters=${filter.value}`,
   )
 
   if (response) {

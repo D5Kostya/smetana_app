@@ -6,7 +6,7 @@
 
 ---
 
-#### Smetana App - new minecraft launcher
+### Smetana App - new minecraft launcher
 
 [✈️My teleram chanel | Мой тгк](https://t.me/d5kostya)
 

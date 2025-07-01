@@ -64,8 +64,16 @@ const getFeaturedModpacks = async () => {
 }
 
 await getInstances()
-
 await Promise.all([getFeaturedModpacks(),])
+
+const unsubscribe = profile_listener(() => {
+  getInstances() // Вызываем getInstances при изменении профилей
+})
+
+// Отписка при уничтожении компонента
+onUnmounted(() => {
+  unsubscribe()
+})
 
 // computed sums of recentInstances, featuredModpacks, featuredMods, treating them as arrays if they are not
 const total = computed(() => {

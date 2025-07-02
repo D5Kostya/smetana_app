@@ -203,11 +203,25 @@ async function setupApp() {
   //    )
   //  })
 
-  useFetch(`https://raw.githubusercontent.com/D5Kostya/smetana_app/refs/heads/main/.github/files/news.json`, 'news', true).then((res) => {
-    if (res && res.articles) {
-      news.value = res.articles
-    }
-  })
+  // Исправленная загрузка новостей
+  fetch('https://raw.githubusercontent.com/D5Kostya/smetana_app/refs/heads/main/.github/files/news.json')
+    .then(response => {
+      if (!response.ok) throw new Error('Network response was not ok');
+      return response.json();
+    })
+    .then(data => {
+      if (data && data.articles) {
+        news.value = data.articles;
+      }
+    })
+    .catch(error => {
+      console.error('Failed to load news:', error);
+      notificationsWrapper.value?.addNotification({
+        title: 'News Error',
+        text: 'Failed to load news feed',
+        type: 'error',
+      });
+    });
 
   get_opening_command().then(handleCommand)
   // checkUpdates()
@@ -410,9 +424,9 @@ function handleAuxClick(e) {
         <CompassIcon />
       </NavButton>
       <NavButton v-tooltip.right="'Library'" to="/library" :is-subpage="() =>
-          route.path.startsWith('/instance') ||
-          ((route.path.startsWith('/browse') || route.path.startsWith('/project')) &&
-            route.query.i)
+        route.path.startsWith('/instance') ||
+        ((route.path.startsWith('/browse') || route.path.startsWith('/project')) &&
+          route.query.i)
         ">
         <LibraryIcon />
       </NavButton>

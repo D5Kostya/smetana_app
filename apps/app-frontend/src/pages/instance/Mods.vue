@@ -125,11 +125,11 @@
         </template>
         <template #header-actions>
           <ButtonStyled v-if="canUpdatePack" color="brand">
-            <button class="w-max" :disabled="installing" @click="modpackVersionModal?.show()">
+            <button class="w-max" :disabled="installing || updatingModpack" @click="updateToLatestModpackVersion">
               <DownloadIcon /> Update
             </button>
           </ButtonStyled>
-          <ButtonStyled v-if="canUpdatePack" type="transparent" color="brand" color-fill="text" hover-color-fill="text">
+          <ButtonStyled v-if="isPackLocked" type="transparent" color="brand" color-fill="text" hover-color-fill="text">
             <button class="w-max" :disabled="installing" @click="modpackVersionModal?.show()">
               <SwapIcon /> Version
             </button>
@@ -139,12 +139,14 @@
               <UpdatedIcon />
             </button>
           </ButtonStyled>
+          <!--
           <ButtonStyled v-if="!isPackLocked && projects.some((m) => (m as any).outdated)" type="transparent"
             color="brand" color-fill="text" hover-color-fill="text" @click="updateAll">
             <button class="w-max">
               <DownloadIcon /> Update all
             </button>
           </ButtonStyled>
+        -->
         </template>
         <template #actions="{ item }">
           <ButtonStyled v-if="!isPackLocked && (item.data as any).outdated" type="transparent" color="brand" circular>
@@ -247,6 +249,7 @@ import {
   toggle_disable_project,
   update_all,
   update_project,
+  update_managed_modrinth_version,
 } from '@/helpers/profile.js'
 import { handleError } from '@/store/notifications.js'
 import { trackEvent } from '@/helpers/analytics'
@@ -279,6 +282,7 @@ const props = defineProps<{
   versions: Version[]
   installed: boolean
 }>()
+const emit = defineEmits(['finish-install']) // ДОЛЖЕН БЫТЬ ЗДЕСЬ
 
 type ProjectListEntryAuthor = {
   name: string
@@ -303,6 +307,23 @@ type ProjectListEntry = {
   updating?: boolean
   selected?: boolean
 }
+
+const updatingModpack = ref(false)
+const updateToLatestModpackVersion = async () => {
+  if (!canUpdatePack.value || !props.versions || props.versions.length === 0) return
+
+  updatingModpack.value = true
+  try {
+    const latestVersionId = props.versions[0].id
+    await update_managed_modrinth_version(props.instance.path, latestVersionId)
+    emit('finish-install')
+  } catch (err) {
+    handleError(err)
+  } finally {
+    updatingModpack.value = false
+  }
+}
+
 
 const isPackLocked = computed(() => {
   return props.instance.linked_data && props.instance.linked_data.locked

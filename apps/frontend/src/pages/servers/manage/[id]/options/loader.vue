@@ -1,28 +1,13 @@
 <template>
-  <LazyUiServersPlatformVersionSelectModal
-    ref="versionSelectModal"
-    :server="props.server"
-    :current-loader="data?.loader as Loaders"
-    :backup-in-progress="backupInProgress"
-    @reinstall="emit('reinstall', $event)"
-  />
+  <LazyUiServersPlatformVersionSelectModal ref="versionSelectModal" :server="props.server"
+    :current-loader="data?.loader as Loaders" :backup-in-progress="backupInProgress"
+    @reinstall="emit('reinstall', $event)" />
 
-  <LazyUiServersPlatformMrpackModal
-    ref="mrpackModal"
-    :server="props.server"
-    @reinstall="emit('reinstall', $event)"
-  />
+  <LazyUiServersPlatformMrpackModal ref="mrpackModal" :server="props.server" @reinstall="emit('reinstall', $event)" />
 
-  <LazyUiServersPlatformChangeModpackVersionModal
-    ref="modpackVersionModal"
-    :server="props.server"
-    :project="data?.project"
-    :versions="Array.isArray(versions) ? versions : []"
-    :current-version="currentVersion"
-    :current-version-id="data?.upstream?.version_id"
-    :server-status="data?.status"
-    @reinstall="emit('reinstall')"
-  />
+  <LazyUiServersPlatformChangeModpackVersionModal ref="modpackVersionModal" :server="props.server"
+    :project="data?.project" :versions="Array.isArray(versions) ? versions : []" :current-version="currentVersion"
+    :current-version-id="data?.upstream?.version_id" :server-status="data?.status" @reinstall="emit('reinstall')" />
 
   <div class="flex h-full w-full flex-col">
     <div v-if="data && versions" class="flex w-full flex-col">
@@ -30,20 +15,13 @@
         <div class="flex select-none flex-col items-center justify-between gap-2 lg:flex-row">
           <div class="flex flex-row items-center gap-2">
             <h2 class="m-0 text-lg font-bold text-contrast">Modpack</h2>
-            <div
-              v-if="updateAvailable"
-              class="rounded-full bg-bg-orange px-2 py-1 text-xs font-medium text-orange"
-            >
+            <div v-if="updateAvailable" class="rounded-full bg-bg-orange px-2 py-1 text-xs font-medium text-orange">
               <span>Update available</span>
             </div>
           </div>
           <div v-if="data.upstream" class="flex gap-4">
             <ButtonStyled>
-              <button
-                class="!w-full sm:!w-auto"
-                :disabled="isInstalling"
-                @click="mrpackModal.show()"
-              >
+              <button class="!w-full sm:!w-auto" :disabled="isInstalling" @click="mrpackModal.show()">
                 <UploadIcon class="size-4" /> Import .mrpack
               </button>
             </ButtonStyled>
@@ -63,10 +41,8 @@
           </div>
         </div>
         <div v-if="data.upstream" class="flex flex-col gap-2">
-          <div
-            v-if="versionsError || currentVersionError"
-            class="rounded-2xl border border-solid border-red p-4 text-contrast"
-          >
+          <div v-if="versionsError || currentVersionError"
+            class="rounded-2xl border border-solid border-red p-4 text-contrast">
             <p class="m-0 font-bold">Something went wrong while loading your modpack.</p>
             <p class="m-0 mb-2 mt-1 text-sm">
               {{ versionsError || currentVersionError }}
@@ -76,12 +52,8 @@
             </ButtonStyled>
           </div>
 
-          <NewProjectCard
-            v-if="!versionsError && !currentVersionError"
-            class="!cursor-default !bg-bg !filter-none"
-            :project="projectCardData"
-            :categories="data.project?.categories || []"
-          >
+          <NewProjectCard v-if="!versionsError && !currentVersionError" class="!cursor-default !bg-bg !filter-none"
+            :project="projectCardData" :categories="data.project?.categories || []">
             <template #actions>
               <ButtonStyled color="brand">
                 <button :disabled="isInstalling" @click="modpackVersionModal.show()">
@@ -94,23 +66,16 @@
         </div>
         <div v-else class="flex w-full flex-col items-center gap-2 sm:w-fit sm:flex-row">
           <ButtonStyled>
-            <nuxt-link
-              v-tooltip="backupInProgress ? formatMessage(backupInProgress.tooltip) : undefined"
-              :class="{ disabled: backupInProgress }"
-              class="!w-full sm:!w-auto"
-              :to="`/modpacks?sid=${props.server.serverId}`"
-            >
+            <nuxt-link v-tooltip="backupInProgress ? formatMessage(backupInProgress.tooltip) : undefined"
+              :class="{ disabled: backupInProgress }" class="!w-full sm:!w-auto"
+              :to="`/modpacks?sid=${props.server.serverId}`">
               <CompassIcon class="size-4" /> Find a modpack
             </nuxt-link>
           </ButtonStyled>
           <span class="hidden sm:block">or</span>
           <ButtonStyled>
-            <button
-              v-tooltip="backupInProgress ? formatMessage(backupInProgress.tooltip) : undefined"
-              :disabled="!!backupInProgress"
-              class="!w-full sm:!w-auto"
-              @click="mrpackModal.show()"
-            >
+            <button v-tooltip="backupInProgress ? formatMessage(backupInProgress.tooltip) : undefined"
+              :disabled="!!backupInProgress" class="!w-full sm:!w-auto" @click="mrpackModal.show()">
               <UploadIcon class="size-4" /> Upload .mrpack file
             </button>
           </ButtonStyled>
@@ -128,19 +93,11 @@
             </span>
           </div>
         </div>
-        <div
-          class="flex w-full flex-col gap-1 rounded-2xl"
-          :class="{
-            'pointer-events-none cursor-not-allowed select-none opacity-50':
-              props.server.general?.status === 'installing',
-          }"
-          :tabindex="props.server.general?.status === 'installing' ? -1 : 0"
-        >
-          <UiServersLoaderSelector
-            :data="data"
-            :is-installing="isInstalling"
-            @select-loader="selectLoader"
-          />
+        <div class="flex w-full flex-col gap-1 rounded-2xl" :class="{
+          'pointer-events-none cursor-not-allowed select-none opacity-50':
+            props.server.general?.status === 'installing',
+        }" :tabindex="props.server.general?.status === 'installing' ? -1 : 0">
+          <UiServersLoaderSelector :data="data" :is-installing="isInstalling" @select-loader="selectLoader" />
         </div>
       </div>
     </div>

@@ -28,7 +28,7 @@ import {
   useRelativeTime,
 } from '@modrinth/ui'
 import { useLoading, useTheming } from '@/store/state'
- import ModrinthAppLogo from '@/assets/modrinth_app.svg?component'
+import ModrinthAppLogo from '@/assets/modrinth_app.svg?component'
 import AccountsCard from '@/components/ui/AccountsCard.vue'
 import InstanceCreationModal from '@/components/ui/InstanceCreationModal.vue'
 import { get, set } from '@/helpers/settings.ts'
@@ -203,7 +203,7 @@ async function setupApp() {
   //    )
   //  })
 
-  useFetch(`https://modrinth.com/blog/news.json`, 'news', true).then((res) => {
+  useFetch(`https://raw.githubusercontent.com/D5Kostya/smetana_app/refs/heads/main/.github/files/news.json`, 'news', true).then((res) => {
     if (res && res.articles) {
       news.value = res.articles
     }
@@ -397,44 +397,30 @@ function handleAuxClick(e) {
     <Suspense>
       <InstanceCreationModal ref="installationModal" />
     </Suspense>
-    <div
-      class="app-grid-navbar bg-bg-raised flex flex-col p-[0.5rem] pt-0 gap-[0.5rem] w-[--left-bar-width]"
-    >
+    <div class="app-grid-navbar bg-bg-raised flex flex-col p-[0.5rem] pt-0 gap-[0.5rem] w-[--left-bar-width]">
       <NavButton v-tooltip.right="'Home'" to="/">
         <HomeIcon />
       </NavButton>
       <NavButton v-if="themeStore.featureFlags.worlds_tab" v-tooltip.right="'Worlds'" to="/worlds">
         <WorldIcon />
       </NavButton>
-      <NavButton
-        v-tooltip.right="'Discover content'"
-        to="/browse/modpack"
+      <NavButton v-tooltip.right="'Discover content'" to="/browse/modpack"
         :is-primary="() => route.path.startsWith('/browse') && !route.query.i"
-        :is-subpage="(route) => route.path.startsWith('/project') && !route.query.i"
-      >
+        :is-subpage="(route) => route.path.startsWith('/project') && !route.query.i">
         <CompassIcon />
       </NavButton>
-      <NavButton
-        v-tooltip.right="'Library'"
-        to="/library"
-        :is-subpage="
-          () =>
-            route.path.startsWith('/instance') ||
-            ((route.path.startsWith('/browse') || route.path.startsWith('/project')) &&
-              route.query.i)
-        "
-      >
+      <NavButton v-tooltip.right="'Library'" to="/library" :is-subpage="() =>
+          route.path.startsWith('/instance') ||
+          ((route.path.startsWith('/browse') || route.path.startsWith('/project')) &&
+            route.query.i)
+        ">
         <LibraryIcon />
       </NavButton>
       <div class="h-px w-6 mx-auto my-2 bg-button-bg"></div>
       <suspense>
         <QuickInstanceSwitcher />
       </suspense>
-      <NavButton
-        v-tooltip.right="'Create new instance'"
-        :to="() => $refs.installationModal.show()"
-        :disabled="offline"
-      >
+      <NavButton v-tooltip.right="'Create new instance'" :to="() => $refs.installationModal.show()" :disabled="offline">
         <PlusIcon />
       </NavButton>
       <div class="flex flex-grow"></div>
@@ -445,23 +431,17 @@ function handleAuxClick(e) {
         <SettingsIcon />
       </NavButton>
       <ButtonStyled v-if="credentials" type="transparent" circular>
-        <OverflowMenu
-          :options="[
-            {
-              id: 'sign-out',
-              action: () => logOut(),
-              color: 'danger',
-            },
-          ]"
-          direction="left"
-        >
-          <Avatar
-            :src="credentials.user.avatar_url"
-            :alt="credentials.user.username"
-            size="32px"
-            circle
-          />
-          <template #sign-out> <LogOutIcon /> Sign out </template>
+        <OverflowMenu :options="[
+          {
+            id: 'sign-out',
+            action: () => logOut(),
+            color: 'danger',
+          },
+        ]" direction="left">
+          <Avatar :src="credentials.user.avatar_url" :alt="credentials.user.username" size="32px" circle />
+          <template #sign-out>
+            <LogOutIcon /> Sign out
+          </template>
         </OverflowMenu>
       </ButtonStyled>
       <NavButton v-else v-tooltip.right="'Sign in'" :to="() => signIn()">
@@ -475,30 +455,22 @@ function handleAuxClick(e) {
         <div class="flex items-center gap-1 ml-3">
           <button
             class="cursor-pointer p-0 m-0 border-none outline-none bg-button-bg rounded-full flex items-center justify-center w-6 h-6 hover:brightness-75 transition-all"
-            @click="router.back()"
-          >
+            @click="router.back()">
             <LeftArrowIcon />
           </button>
           <button
             class="cursor-pointer p-0 m-0 border-none outline-none bg-button-bg rounded-full flex items-center justify-center w-6 h-6 hover:brightness-75 transition-all"
-            @click="router.forward()"
-          >
+            @click="router.forward()">
             <RightArrowIcon />
           </button>
         </div>
         <Breadcrumbs class="pt-[2px]" />
       </div>
       <section class="flex ml-auto items-center">
-        <ButtonStyled
-          v-if="!forceSidebar && themeStore.toggleSidebar"
-          :type="sidebarToggled ? 'standard' : 'transparent'"
-          circular
-        >
-          <button
-            class="mr-3 transition-transform"
-            :class="{ 'rotate-180': !sidebarToggled }"
-            @click="sidebarToggled = !sidebarToggled"
-          >
+        <ButtonStyled v-if="!forceSidebar && themeStore.toggleSidebar"
+          :type="sidebarToggled ? 'standard' : 'transparent'" circular>
+          <button class="mr-3 transition-transform" :class="{ 'rotate-180': !sidebarToggled }"
+            @click="sidebarToggled = !sidebarToggled">
             <RightArrowIcon />
           </button>
         </ButtonStyled>
@@ -511,11 +483,7 @@ function handleAuxClick(e) {
           <Button class="titlebar-button" icon-only @click="() => getCurrentWindow().minimize()">
             <MinimizeIcon />
           </Button>
-          <Button
-            class="titlebar-button"
-            icon-only
-            @click="() => getCurrentWindow().toggleMaximize()"
-          >
+          <Button class="titlebar-button" icon-only @click="() => getCurrentWindow().toggleMaximize()">
             <RestoreIcon v-if="isMaximized" />
             <MaximizeIcon v-else />
           </Button>
@@ -526,44 +494,28 @@ function handleAuxClick(e) {
       </section>
     </div>
   </div>
-  <div
-    v-if="stateInitialized"
-    class="app-contents experimental-styles-within"
-    :class="{ 'sidebar-enabled': sidebarVisible }"
-  >
+  <div v-if="stateInitialized" class="app-contents experimental-styles-within"
+    :class="{ 'sidebar-enabled': sidebarVisible }">
     <div class="app-viewport flex-grow router-view">
-      <div
-        class="loading-indicator-container h-8 fixed z-50"
-        :style="{
-          top: 'calc(var(--top-bar-height))',
-          left: 'calc(var(--left-bar-width))',
-          width: 'calc(100% - var(--left-bar-width) - var(--right-bar-width))',
-        }"
-      >
+      <div class="loading-indicator-container h-8 fixed z-50" :style="{
+        top: 'calc(var(--top-bar-height))',
+        left: 'calc(var(--left-bar-width))',
+        width: 'calc(100% - var(--left-bar-width) - var(--right-bar-width))',
+      }">
         <ModrinthLoadingIndicator />
       </div>
-      <div
-        v-if="themeStore.featureFlags.page_path"
-        class="absolute bottom-0 left-0 m-2 bg-tooltip-bg text-tooltip-text font-semibold rounded-full px-2 py-1 text-xs z-50"
-      >
+      <div v-if="themeStore.featureFlags.page_path"
+        class="absolute bottom-0 left-0 m-2 bg-tooltip-bg text-tooltip-text font-semibold rounded-full px-2 py-1 text-xs z-50">
         {{ route.fullPath }}
       </div>
-      <div
-        id="background-teleport-target"
-        class="absolute h-full -z-10 rounded-tl-[--radius-xl] overflow-hidden"
+      <div id="background-teleport-target" class="absolute h-full -z-10 rounded-tl-[--radius-xl] overflow-hidden"
         :style="{
           width: 'calc(100% - var(--right-bar-width))',
-        }"
-      ></div>
-      <div
-        v-if="criticalErrorMessage"
-        class="m-6 mb-0 flex flex-col border-red bg-bg-red rounded-2xl border-2 border-solid p-4 gap-1 font-semibold text-contrast"
-      >
+        }"></div>
+      <div v-if="criticalErrorMessage"
+        class="m-6 mb-0 flex flex-col border-red bg-bg-red rounded-2xl border-2 border-solid p-4 gap-1 font-semibold text-contrast">
         <h1 class="m-0 text-lg font-extrabold">{{ criticalErrorMessage.header }}</h1>
-        <div
-          class="markdown-body text-primary"
-          v-html="renderString(criticalErrorMessage.body ?? '')"
-        ></div>
+        <div class="markdown-body text-primary" v-html="renderString(criticalErrorMessage.body ?? '')"></div>
       </div>
       <RouterView v-slot="{ Component }">
         <template v-if="Component">
@@ -575,12 +527,8 @@ function handleAuxClick(e) {
     </div>
     <div
       class="app-sidebar mt-px shrink-0 flex flex-col border-0 border-l-[1px] border-[--brand-gradient-border] border-solid overflow-auto"
-      :class="{ 'has-plus': hasPlus }"
-    >
-      <div
-        class="app-sidebar-scrollable flex-grow shrink overflow-y-auto relative"
-        :class="{ 'pb-12': !hasPlus }"
-      >
+      :class="{ 'has-plus': hasPlus }">
+      <div class="app-sidebar-scrollable flex-grow shrink overflow-y-auto relative" :class="{ 'pb-12': !hasPlus }">
         <div id="sidebar-teleport-target" class="sidebar-teleport-content"></div>
         <div class="sidebar-default-content" :class="{ 'sidebar-enabled': sidebarVisible }">
           <div class="p-4 border-0 border-b-[1px] border-[--brand-gradient-border] border-solid">
@@ -597,18 +545,10 @@ function handleAuxClick(e) {
           <div v-if="news && news.length > 0" class="pt-4 flex flex-col">
             <h3 class="px-4 text-lg m-0">News</h3>
             <template v-for="(item, index) in news" :key="`news-${index}`">
-              <a
-                :class="`flex flex-col outline-offset-[-4px] hover:bg-[--brand-gradient-border] focus:bg-[--brand-gradient-border] px-4 transition-colors ${index === 0 ? 'pt-2 pb-4' : 'py-4'}`"
-                :href="item.link"
-                target="_blank"
-                rel="external"
-              >
-                <img
-                  :src="item.thumbnail"
-                  alt="News thumbnail"
-                  aria-hidden="true"
-                  class="w-full aspect-[3/1] object-cover rounded-2xl border-[1px] border-solid border-[--brand-gradient-border]"
-                />
+              <a :class="`flex flex-col outline-offset-[-4px] hover:bg-[--brand-gradient-border] focus:bg-[--brand-gradient-border] px-4 transition-colors ${index === 0 ? 'pt-2 pb-4' : 'py-4'}`"
+                :href="item.link" target="_blank" rel="external">
+                <img :src="item.thumbnail" alt="News thumbnail" aria-hidden="true"
+                  class="w-full aspect-[3/1] object-cover rounded-2xl border-[1px] border-solid border-[--brand-gradient-border]" />
                 <h4 class="mt-2 mb-0 text-sm leading-none text-contrast font-semibold">
                   {{ item.title }}
                 </h4>
@@ -617,10 +557,8 @@ function handleAuxClick(e) {
                   {{ formatRelativeTime(dayjs(item.date).toISOString()) }}
                 </p>
               </a>
-              <hr
-                v-if="index !== news.length - 1"
-                class="h-px my-[-2px] mx-4 border-0 m-0 bg-[--brand-gradient-border]"
-              />
+              <hr v-if="index !== news.length - 1"
+                class="h-px my-[-2px] mx-4 border-0 m-0 bg-[--brand-gradient-border]" />
             </template>
           </div>
         </div>
@@ -690,6 +628,7 @@ function handleAuxClick(e) {
     }
 
     &.close {
+
       &:hover,
       &:active {
         color: var(--color-accent-contrast);
@@ -840,7 +779,7 @@ function handleAuxClick(e) {
   display: none;
 }
 
-.sidebar-teleport-content:empty + .sidebar-default-content.sidebar-enabled {
+.sidebar-teleport-content:empty+.sidebar-default-content.sidebar-enabled {
   display: contents;
 }
 </style>

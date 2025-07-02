@@ -30,36 +30,26 @@ const changelogEntries = computed(() =>
 </script>
 
 <template>
-  <NavTabs
-    :links="[
-      {
-        label: 'All',
-        href: '',
-      },
-      {
-        label: 'Website',
-        href: 'web',
-      },
-      {
-        label: 'Servers',
-        href: 'servers',
-      },
-      {
-        label: 'App',
-        href: 'app',
-      },
-    ]"
-    query="filter"
-    class="mb-4"
-  />
+  <NavTabs :links="[
+    {
+      label: 'All',
+      href: '',
+    },
+    {
+      label: 'Website',
+      href: 'web',
+    },
+    {
+      label: 'Servers',
+      href: 'servers',
+    },
+    {
+      label: 'App',
+      href: 'app',
+    },
+  ]" query="filter" class="mb-4" />
   <Timeline fade-out-end>
-    <ChangelogEntry
-      v-for="(entry, index) in changelogEntries"
-      :key="entry.date"
-      :entry="entry"
-      :first="index === 0"
-      :show-type="filter === undefined"
-      has-link
-    />
+    <ChangelogEntry v-for="(entry, index) in changelogEntries" :key="entry.date" :entry="entry" :first="index === 0"
+      :show-type="filter === undefined" has-link />
   </Timeline>
 </template>

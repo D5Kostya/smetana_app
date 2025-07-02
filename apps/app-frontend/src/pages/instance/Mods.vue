@@ -4,13 +4,9 @@
       <div class="flex items-center gap-2 mb-4">
         <div class="iconified-input flex-grow">
           <SearchIcon />
-          <input
-            v-model="searchFilter"
-            type="text"
+          <input v-model="searchFilter" type="text"
             :placeholder="`Search ${filteredProjects.length} project${filteredProjects.length === 1 ? '' : 's'}...`"
-            class="text-input search-input"
-            autocomplete="off"
-          />
+            class="text-input search-input" autocomplete="off" />
           <Button class="r-btn" @click="() => (searchFilter = '')">
             <XIcon />
           </Button>
@@ -20,168 +16,145 @@
       <div class="flex items-center justify-between">
         <div v-if="filterOptions.length > 1" class="flex flex-wrap gap-1 items-center pb-4">
           <FilterIcon class="text-secondary h-5 w-5 mr-1" />
-          <button
-            v-for="filter in filterOptions"
-            :key="`content-filter-${filter.id}`"
+          <button v-for="filter in filterOptions" :key="`content-filter-${filter.id}`"
             :class="`px-2 py-1 rounded-full font-semibold leading-none border-none cursor-pointer active:scale-[0.97] duration-100 transition-all ${selectedFilters.includes(filter.id) ? 'bg-brand-highlight text-brand' : 'bg-bg-raised text-secondary'}`"
-            @click="toggleArray(selectedFilters, filter.id)"
-          >
+            @click="toggleArray(selectedFilters, filter.id)">
             {{ filter.formattedName }}
           </button>
         </div>
-        <Pagination
-          v-if="search.length > 0"
-          :page="currentPage"
-          :count="Math.ceil(search.length / 20)"
-          :link-function="(page) => `?page=${page}`"
-          @switch-page="(page) => (currentPage = page)"
-        />
+        <Pagination v-if="search.length > 0" :page="currentPage" :count="Math.ceil(search.length / 20)"
+          :link-function="(page) => `?page=${page}`" @switch-page="(page) => (currentPage = page)" />
       </div>
 
-      <ContentListPanel
-        v-model="selectedFiles"
-        :locked="isPackLocked"
-        :items="
-          search.map((x) => {
-            const item: ContentItem<any> = {
-              path: x.path,
-              disabled: x.disabled,
-              filename: x.file_name,
-              icon: x.icon ?? undefined,
-              title: x.name,
-              data: x,
-            }
+      <ContentListPanel v-model="selectedFiles" :locked="isPackLocked" :items="search.map((x) => {
+        const item: ContentItem<any> = {
+          path: x.path,
+          disabled: x.disabled,
+          filename: x.file_name,
+          icon: x.icon ?? undefined,
+          title: x.name,
+          data: x,
+        }
 
-            if (x.version) {
-              item.version = x.version
-              item.versionId = x.version
-            }
+        if (x.version) {
+          item.version = x.version
+          item.versionId = x.version
+        }
 
-            if (x.id) {
-              item.project = {
-                id: x.id,
-                link: { path: `/project/${x.id}`, query: { i: props.instance.path } },
-                linkProps: {},
-              }
-            }
+        if (x.id) {
+          item.project = {
+            id: x.id,
+            link: { path: `/project/${x.id}`, query: { i: props.instance.path } },
+            linkProps: {},
+          }
+        }
 
-            if (x.author) {
-              item.creator = {
-                name: x.author.name,
-                type: x.author.type,
-                id: x.author.slug,
-                link: `https://modrinth.com/${x.author.type}/${x.author.slug}`,
-                linkProps: { target: '_blank' },
-              }
-            }
+        if (x.author) {
+          item.creator = {
+            name: x.author.name,
+            type: x.author.type,
+            id: x.author.slug,
+            link: `https://modrinth.com/${x.author.type}/${x.author.slug}`,
+            linkProps: { target: '_blank' },
+          }
+        }
 
-            return item
-          })
-        "
-        :sort-column="sortColumn"
-        :sort-ascending="ascending"
-        :update-sort="sortProjects"
-        :current-page="currentPage"
-      >
+        return item
+      })
+        " :sort-column="sortColumn" :sort-ascending="ascending" :update-sort="sortProjects"
+        :current-page="currentPage">
         <template v-if="selectedProjects.length > 0" #headers>
           <div class="flex gap-2">
-            <ButtonStyled
-              v-if="!isPackLocked && selectedProjects.some((m) => m.outdated)"
-              color="brand"
-              color-fill="text"
-              hover-color-fill="text"
-            >
-              <button @click="updateSelected()"><DownloadIcon /> Update</button>
+            <ButtonStyled v-if="!isPackLocked && selectedProjects.some((m) => m.outdated)" color="brand"
+              color-fill="text" hover-color-fill="text">
+              <button @click="updateSelected()">
+                <DownloadIcon /> Update
+              </button>
             </ButtonStyled>
             <ButtonStyled>
-              <OverflowMenu
-                :options="[
-                  {
-                    id: 'share-names',
-                    action: () => shareNames(),
-                  },
-                  {
-                    id: 'share-file-names',
-                    action: () => shareFileNames(),
-                  },
-                  {
-                    id: 'share-urls',
-                    action: () => shareUrls(),
-                  },
-                  {
-                    id: 'share-markdown',
-                    action: () => shareMarkdown(),
-                  },
-                ]"
-              >
-                <ShareIcon /> Share <DropdownIcon />
-                <template #share-names> <TextInputIcon /> Project names </template>
-                <template #share-file-names> <FileIcon /> File names </template>
-                <template #share-urls> <LinkIcon /> Project links </template>
-                <template #share-markdown> <CodeIcon /> Markdown links </template>
+              <OverflowMenu :options="[
+                {
+                  id: 'share-names',
+                  action: () => shareNames(),
+                },
+                {
+                  id: 'share-file-names',
+                  action: () => shareFileNames(),
+                },
+                {
+                  id: 'share-urls',
+                  action: () => shareUrls(),
+                },
+                {
+                  id: 'share-markdown',
+                  action: () => shareMarkdown(),
+                },
+              ]">
+                <ShareIcon /> Share
+                <DropdownIcon />
+                <template #share-names>
+                  <TextInputIcon /> Project names
+                </template>
+                <template #share-file-names>
+                  <FileIcon /> File names
+                </template>
+                <template #share-urls>
+                  <LinkIcon /> Project links
+                </template>
+                <template #share-markdown>
+                  <CodeIcon /> Markdown links
+                </template>
               </OverflowMenu>
             </ButtonStyled>
             <ButtonStyled v-if="selectedProjects.some((m) => m.disabled)">
-              <button @click="enableAll()"><CheckCircleIcon /> Enable</button>
+              <button @click="enableAll()">
+                <CheckCircleIcon /> Enable
+              </button>
             </ButtonStyled>
             <ButtonStyled v-if="selectedProjects.some((m) => !m.disabled)">
-              <button @click="disableAll()"><SlashIcon /> Disable</button>
+              <button @click="disableAll()">
+                <SlashIcon /> Disable
+              </button>
             </ButtonStyled>
             <ButtonStyled color="red">
-              <button @click="deleteSelected()"><TrashIcon /> Remove</button>
+              <button @click="deleteSelected()">
+                <TrashIcon /> Remove
+              </button>
             </ButtonStyled>
           </div>
         </template>
         <template #header-actions>
+          <ButtonStyled v-if="canUpdatePack" color="brand">
+            <button class="w-max" :disabled="installing" @click="modpackVersionModal?.show()">
+              <DownloadIcon /> Update
+            </button>
+          </ButtonStyled>
+          <ButtonStyled v-if="canUpdatePack" type="transparent" color="brand" color-fill="text" hover-color-fill="text">
+            <button class="w-max" :disabled="installing" @click="modpackVersionModal?.show()">
+              <SwapIcon /> Version
+            </button>
+          </ButtonStyled>
           <ButtonStyled type="transparent" color-fill="text" hover-color-fill="text">
             <button :disabled="refreshingProjects" class="w-max" @click="refreshProjects">
               <UpdatedIcon />
-              Refresh
             </button>
           </ButtonStyled>
-          <ButtonStyled
-            v-if="!isPackLocked && projects.some((m) => (m as any).outdated)"
-            type="transparent"
-            color="brand"
-            color-fill="text"
-            hover-color-fill="text"
-            @click="updateAll"
-          >
-            <button class="w-max"><DownloadIcon /> Update all</button>
-          </ButtonStyled>
-          <ButtonStyled
-            v-if="canUpdatePack"
-            type="transparent"
-            color="brand"
-            color-fill="text"
-            hover-color-fill="text"
-          >
-            <button class="w-max" :disabled="installing" @click="modpackVersionModal?.show()">
-              <DownloadIcon /> Update pack
+          <ButtonStyled v-if="!isPackLocked && projects.some((m) => (m as any).outdated)" type="transparent"
+            color="brand" color-fill="text" hover-color-fill="text" @click="updateAll">
+            <button class="w-max">
+              <DownloadIcon /> Update all
             </button>
           </ButtonStyled>
         </template>
         <template #actions="{ item }">
-          <ButtonStyled
-            v-if="!isPackLocked && (item.data as any).outdated"
-            type="transparent"
-            color="brand"
-            circular
-          >
-            <button
-              v-tooltip="`Update`"
-              :disabled="(item.data as ProjectListEntry).updating"
-              @click="updateProject(item.data)"
-            >
+          <ButtonStyled v-if="!isPackLocked && (item.data as any).outdated" type="transparent" color="brand" circular>
+            <button v-tooltip="`Update`" :disabled="(item.data as ProjectListEntry).updating"
+              @click="updateProject(item.data)">
               <DownloadIcon />
             </button>
           </ButtonStyled>
           <div v-else class="w-[36px]"></div>
-          <Toggle
-            class="!mx-2"
-            :model-value="!item.data.disabled"
-            @update:model-value="toggleDisableMod(item.data)"
-          />
+          <Toggle class="!mx-2" :model-value="!item.data.disabled" @update:model-value="toggleDisableMod(item.data)" />
           <ButtonStyled type="transparent" circular>
             <button v-tooltip="'Remove'" @click="removeMod(item)">
               <TrashIcon />
@@ -189,63 +162,49 @@
           </ButtonStyled>
 
           <ButtonStyled type="transparent" circular>
-            <OverflowMenu
-              :options="[
-                {
-                  id: 'show-file',
-                  action: () => highlightModInProfile(instance.path, item.path),
-                },
-                {
-                  id: 'copy-link',
-                  shown: item.data !== undefined && item.data.slug !== undefined,
-                  action: () => copyModLink(item),
-                },
-              ]"
-              direction="left"
-            >
+            <OverflowMenu :options="[
+              {
+                id: 'show-file',
+                action: () => highlightModInProfile(instance.path, item.path),
+              },
+              {
+                id: 'copy-link',
+                shown: item.data !== undefined && item.data.slug !== undefined,
+                action: () => copyModLink(item),
+              },
+            ]" direction="left">
               <MoreVerticalIcon />
-              <template #show-file> <ExternalIcon /> Show file </template>
-              <template #copy-link> <ClipboardCopyIcon /> Copy link </template>
+              <template #show-file>
+                <ExternalIcon /> Show file
+              </template>
+              <template #copy-link>
+                <ClipboardCopyIcon /> Copy link
+              </template>
             </OverflowMenu>
           </ButtonStyled>
         </template>
       </ContentListPanel>
       <div class="flex justify-end mt-4">
-        <Pagination
-          v-if="search.length > 0"
-          :page="currentPage"
-          :count="Math.ceil(search.length / 20)"
-          :link-function="(page) => `?page=${page}`"
-          @switch-page="(page) => (currentPage = page)"
-        />
+        <Pagination v-if="search.length > 0" :page="currentPage" :count="Math.ceil(search.length / 20)"
+          :link-function="(page) => `?page=${page}`" @switch-page="(page) => (currentPage = page)" />
       </div>
     </template>
     <div v-else class="w-full max-w-[48rem] mx-auto flex flex-col mt-6">
       <RadialHeader class="">
         <div class="flex items-center gap-6 w-[32rem] mx-auto">
           <img src="@/assets/sad-modrinth-bot.webp" class="h-24" />
-          <span class="text-contrast font-bold text-xl"
-            >You haven't added any content to this instance yet.</span
-          >
+          <span class="text-contrast font-bold text-xl">You haven't added any content to this instance yet.</span>
         </div>
       </RadialHeader>
       <div class="flex mt-4 mx-auto">
         <AddContentButton :instance="instance" />
       </div>
     </div>
-    <ShareModalWrapper
-      ref="shareModal"
-      share-title="Sharing modpack content"
-      share-text="Check out the projects I'm using in my modpack!"
-      :open-in-new-tab="false"
-    />
+    <ShareModalWrapper ref="shareModal" share-title="Sharing modpack content"
+      share-text="Check out the projects I'm using in my modpack!" :open-in-new-tab="false" />
     <ExportModal v-if="projects.length > 0" ref="exportModal" :instance="instance" />
-    <ModpackVersionModal
-      v-if="instance.linked_data"
-      ref="modpackVersionModal"
-      :instance="instance"
-      :versions="props.versions"
-    />
+    <ModpackVersionModal v-if="instance.linked_data" ref="modpackVersionModal" :instance="instance"
+      :versions="props.versions" />
   </div>
 </template>
 <script setup lang="ts">
@@ -296,6 +255,8 @@ import { TextInputIcon } from '@/assets/icons'
 import ExportModal from '@/components/ui/ExportModal.vue'
 import ModpackVersionModal from '@/components/ui/ModpackVersionModal.vue'
 import AddContentButton from '@/components/ui/AddContentButton.vue'
+import { SwapIcon } from '@/assets/icons/index.js'
+
 import {
   get_organization_many,
   get_project_many,
@@ -460,9 +421,9 @@ const initProjects = async (cacheBehaviour?: CacheBehaviour) => {
     newSelectionMap.set(
       project.path,
       selectionMap.value.get(project.path) ??
-        selectionMap.value.get(project.path.slice(0, -9)) ??
-        selectionMap.value.get(project.path + '.disabled') ??
-        false,
+      selectionMap.value.get(project.path.slice(0, -9)) ??
+      selectionMap.value.get(project.path + '.disabled') ??
+      false,
     )
   }
   selectionMap.value = newSelectionMap
@@ -1078,6 +1039,7 @@ onUnmounted(() => {
     }
   }
 }
+
 .empty-prompt {
   display: flex;
   flex-direction: column;
@@ -1117,11 +1079,9 @@ onUnmounted(() => {
 }
 
 .top-box {
-  background-image: radial-gradient(
-    50% 100% at 50% 100%,
-    var(--color-brand-highlight) 10%,
-    #ffffff00 100%
-  );
+  background-image: radial-gradient(50% 100% at 50% 100%,
+      var(--color-brand-highlight) 10%,
+      #ffffff00 100%);
 }
 
 .top-box-divider {

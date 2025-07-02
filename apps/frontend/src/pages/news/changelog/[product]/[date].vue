@@ -8,19 +8,19 @@ const route = useRoute();
 const changelogEntry = computed(() =>
   route.params.date
     ? getChangelog().find((x) => {
-        if (x.product === route.params.product) {
-          console.log("Found matching product!");
+      if (x.product === route.params.product) {
+        console.log("Found matching product!");
 
-          if (x.version && x.version === route.params.date) {
-            console.log("Found matching version!");
-            return x;
-          } else if (x.date.unix() === Number(route.params.date as string)) {
-            console.log("Found matching date!");
-            return x;
-          }
+        if (x.version && x.version === route.params.date) {
+          console.log("Found matching version!");
+          return x;
+        } else if (x.date.unix() === Number(route.params.date as string)) {
+          console.log("Found matching date!");
+          return x;
         }
-        return undefined;
-      })
+      }
+      return undefined;
+    })
     : undefined,
 );
 
@@ -33,10 +33,8 @@ if (!changelogEntry.value) {
 
 <template>
   <div v-if="changelogEntry">
-    <nuxt-link
-      :to="`/news/changelog?filter=${changelogEntry.product}`"
-      class="mb-4 mt-4 flex w-fit items-center gap-2 text-link"
-    >
+    <nuxt-link :to="`/news/changelog?filter=${changelogEntry.product}`"
+      class="mb-4 mt-4 flex w-fit items-center gap-2 text-link">
       <ChevronLeftIcon /> View full changelog
     </nuxt-link>
     <Timeline fade-out-end :fade-out-start="!isFirst">

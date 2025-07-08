@@ -8,8 +8,9 @@
 
 ### Smetana App - new minecraft launcher
 
-- [✈️ My teleram chanel](https://t.me/d5kostya) | [Мой тгк✈️](https://t.me/d5kostya)
-- 🔌\*is a fork of [AstraRinth](https://git.astralium.su/didirus/AstralRinth)(astrarinth is fork of [modrinth](https://github.com/modrinth/code))🔌
+<img src=".github/assets/tg.png" alt="telegram | телеграм" width="19"> [Teleram chanel](https://t.me/d5kostya)
+
+<img src=".github/assets/fork.png" alt="telegram | телеграм" width="19"> Fork of [AstraRinth](https://git.astralium.su/didirus/AstralRinth)(astrarinth is fork of [modrinth](https://github.com/modrinth/code))
 
 ### Features | Фичи
 

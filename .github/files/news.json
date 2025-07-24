@@ -6,6 +6,13 @@
       "thumbnail": "https://raw.githubusercontent.com/D5Kostya/smetana_app/refs/heads/main/.github/assets/smetana.png",
       "date": "2025-06-18T00:00:00.000Z",
       "link": "https://github.com/D5Kostya/smetana_app"
+    },
+    {
+      "title": "Smetana modpack",
+      "summary": "Cool client modpack Aimed to atmosphere, has QoL mods. Made specially for app",
+      "thumbnail": "https://raw.githubusercontent.com/D5Kostya/smetana_app/refs/heads/main/.github/assets/modpack.png",
+      "date": "2025-07-24T00:00:00.000Z",
+      "link": "https://modrinth.com/modpack/smetana"
     }
   ]
 }

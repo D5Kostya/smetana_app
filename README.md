@@ -22,6 +22,6 @@
 - You can launch some instance several times | Сборку можно запускать 2 раза одновременно
 - Playing time | Время игры
 - Better home screen | Красивая главная
-- 🔜~~By default installing cool client modpack | По умолчанию ставится мой мегакрутоая клиентскиая сборка~~(under review on modrinth)
+- 🔜By default installing cool client modpack | По умолчанию ставится мой мегакрутоая клиентскиая сборка(under review on modrinth)
 
 _NOT AN OFFICIAL MINECRAFT SERVICE. NOT APPROVED BY OR ASSOCIATED WITH MOJANG OR MICROSOFT._
